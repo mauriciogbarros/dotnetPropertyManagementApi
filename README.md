@@ -52,6 +52,16 @@ This project follows a layered, clean architecture approach to keep the codebase
   - Unit/
   - Integration/
 
+### References
+Rule: outer -> inner
+- `Infrastructure` -> `Domain`
+- `Application` -> `Domain`
+- `Application` -> `Infrastructure`
+- `Api` -> `Application`
+- `Unit` -> `Domain`
+- `Unit` -> `Application`
+- `Api` -> `Integration`
+
 ## API Endpoints Overview
 ### Manager Endpoints
 |Method|Endpoint|Description|
