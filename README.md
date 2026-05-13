@@ -44,7 +44,16 @@ This project follows a layered, clean architecture approach to keep the codebase
   - DTOs/
 - Domain/
   - Entities/
+    - BaseEntity.cs
+    - Property.cs
+    - Unit.cs
+    - Users/
+      - Manager.cs
+      - Technician.cs
+      - Tenant.cs
+      - User.cs
   - Enums/
+    - UserRoles.cs
 - Infrastructure/
   - Authentication/
   - Persistence/
