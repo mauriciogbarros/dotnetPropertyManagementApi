@@ -199,14 +199,9 @@ public sealed class AppDbContext : DbContext
 
 			// IMPORTANT: Capabilities is stored as native PG enum array
 			// "t_technician_capability[]".
-			// Domain type is HashSet<TechnicianCapability>
+			// Domain type is TechnicianCapability[]
 			e.Property(t => t.Capabilities)
-				.HasColumnType("t_technician_capability");
-			var comparer = new ValueComparer<HashSet<TechnicianCapability>>(
-				(a, c) => a.SetEquals(c),
-				v => v.Aggregate(0, (acc, x) => HashCode.Combine(acc, x.GetHashCode())),
-				v => v.ToHashSet()
-			);
+				.HasColumnType("t_technician_capability[]");
 
 			// Ensure PostgreSQL array column type
 			e.Property(t => t.Capabilities).HasColumnType("text[]");

@@ -29,7 +29,7 @@ public sealed class TechnicianService : ITechnicianService
 				t.Email,
 				t.PhoneNumber,
 				t.HourlyRate,
-				t.Capabilities.ToArray(),
+				t.Capabilities.ToList(),
 				t.CreatedAt
 			))
 			.ToList();
@@ -46,7 +46,7 @@ public sealed class TechnicianService : ITechnicianService
 			t.Email,
 			t.PhoneNumber,
 			t.HourlyRate,
-			t.Capabilities.ToArray(),
+			t.Capabilities.ToList(),
 			t.CreatedAt
 		);
 	}
@@ -61,7 +61,7 @@ public sealed class TechnicianService : ITechnicianService
 		{
 			Property = property,
 			HourlyRate = request.HourlyRate,
-			Capabilities = request.Capabilities.ToHashSet(),
+			Capabilities = request.Capabilities.ToList(),
 			FirstName = request.FirstName,
 			LastName = request.LastName,
 			Email = request.Email,
@@ -86,7 +86,7 @@ public sealed class TechnicianService : ITechnicianService
 		t.Email = request.Email;
 		t.PhoneNumber = request.PhoneNumber;
 		t.HourlyRate = request.HourlyRate;
-		t.Capabilities = request.Capabilities.ToHashSet();
+		t.Capabilities = request.Capabilities.Distinct().ToList();
 
 		await _writer.SaveChangesAsync(ct);
 

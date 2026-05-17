@@ -91,7 +91,7 @@ public static class DbSeeder
             {
                 Property = property,
                 HourlyRate = 38.00m,
-                Capabilities = new HashSet<TechnicianCapability>
+                Capabilities = new List<TechnicianCapability>
                 {
                     TechnicianCapability.Electrical,
                     TechnicianCapability.HVAC,
@@ -107,7 +107,7 @@ public static class DbSeeder
             {
                 Property = property,
                 HourlyRate = 36.00m,
-                Capabilities = new HashSet<TechnicianCapability>
+                Capabilities = new List<TechnicianCapability>
                 {
                     TechnicianCapability.Plumbing,
                     TechnicianCapability.General
@@ -122,7 +122,7 @@ public static class DbSeeder
             {
                 Property = property,
                 HourlyRate = 34.50m,
-                Capabilities = new HashSet<TechnicianCapability>
+                Capabilities = new List<TechnicianCapability>
                 {
                     TechnicianCapability.Painting,
                     TechnicianCapability.DryWall,
@@ -138,7 +138,7 @@ public static class DbSeeder
             {
                 Property = property,
                 HourlyRate = 40.00m,
-                Capabilities = new HashSet<TechnicianCapability>
+                Capabilities = new List<TechnicianCapability>
                 {
                     TechnicianCapability.Machinery,
                     TechnicianCapability.HVAC
