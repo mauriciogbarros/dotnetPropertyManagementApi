@@ -1,7 +1,7 @@
 using Domain.Enums;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Infrastructure.Persistence.Migrations;
+namespace Infrastructure.Persistence;
 
 public partial class InitialDev : Migration
 {
@@ -12,7 +12,7 @@ public partial class InitialDev : Migration
 		migrationBuilder.Sql(@"DROP TABLE IF EXISTS ""Units"" CASCADE;");
 		migrationBuilder.Sql(@"DROP TABLE IF EXISTS ""Properties"" CASCADE");
 		migrationBuilder.Sql(@"DROP TYPE IF EXISTS t_user_role CASCADE");
-		migrationBuilder.Sql(@"DROP TYPE IF EXISTS t_technician_capability");
+		migrationBuilder.Sql(@"DROP TYPE IF EXISTS t_technician_capability CASCADE");
 
 		// Re-create enum types
 		migrationBuilder.AlterDatabase()
