@@ -61,7 +61,7 @@ public sealed class TechnicianService : ITechnicianService
 		{
 			Property = property,
 			HourlyRate = request.HourlyRate,
-			Capabilities = request.Capabilities.ToList(),
+			Capabilities = request.Capabilities.Distinct().ToList(),
 			FirstName = request.FirstName,
 			LastName = request.LastName,
 			Email = request.Email,
