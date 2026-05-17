@@ -39,37 +39,58 @@ This project follows a layered, clean architecture approach to keep the codebase
 **dotnetPropertyManagementApi**
 - Api/
   - Controllers/
-  - Program.cs
 - Application/
-  - DTOs/
+  - Abstractions/
+  - DependencyInjection/
+  - Dtos/
 - Domain/
+  - Abstractions/
   - Entities/
-    - BaseEntity.cs
-    - Property.cs
-    - Unit.cs
-    - Users/
-      - Manager.cs
-      - Technician.cs
-      - Tenant.cs
-      - User.cs
   - Enums/
-    - UserRoles.cs
+  - ValueObjects/
 - Infrastructure/
-  - Authentication/
-  - Persistence/
+  - Persistence
+    - DependencyInjection/
+    - DesignTime/
+    - Migrations/
+    - Repositories
 - Tests/
   - Unit/
   - Integration/
 
+### Key rules
+- Domain
+  - Pure business logic
+  - No EF Core, no ASP.NET, no dependencies
+- Application
+  - Use cases, interfaces, DTOs
+  - Depends only on Domain
+  - Defines repository contracts
+- Infrastructure
+  - DbContext, migrations, repository implementations
+  - Depends on Application + Domain
+- API
+  - Controllers, HTTP concerns
+  - Depends on Application
+  - References Infrastructure **only to register services**
+
+```
+Domain <---- Application
+  ^             |
+  |             |
+Infrastructure  |
+  ^             |
+  |             |
+ API -----------
+```
+
 ### References
 Rule: outer -> inner
-- `Infrastructure` -> `Domain`
-- `Application` -> `Domain`
+- `API` -> `Application`
+- `API` -> `Infrastructure`
 - `Application` -> `Infrastructure`
-- `Api` -> `Application`
-- `Unit` -> `Domain`
-- `Unit` -> `Application`
-- `Api` -> `Integration`
+- `Application` -> `Domain`
+- `Infrastructure` -> `Domain` 
 
 ## API Endpoints Overview
 ### Manager Endpoints
