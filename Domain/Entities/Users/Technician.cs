@@ -7,6 +7,7 @@ public sealed class Technician : User
 {
 	public Property Property { get; init; } = default!;
 	public HashSet<TechnicianCapability> Capabilities { get; set; } = [];
+	public decimal HourlyRate { get; set; } = default!;
 
 	public Technician()
 	{
