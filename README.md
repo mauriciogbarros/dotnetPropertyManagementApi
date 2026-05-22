@@ -7,18 +7,12 @@ This API allows **managers** to manage property **units**, **tenants**, and **te
 This is a portfolio project demonstrating API design, authentication, authorization, and data modeling using .NET and PostgreSQL.
 
 ## Table of Contents
-- [Property Management API](#property-management-api)
-			- [Motivation](#motivation)
-	- [Table of Contents](#table-of-contents)
-	- [Key Features](#key-features)
-		- [Manager Capabilities](#manager-capabilities)
-		- [Technician Capabilities](#technician-capabilities)
-		- [Tenant Capabilities](#tenant-capabilities)
-	- [Technology Stack](#technology-stack)
-	- [Installation](#installation)
-	- [Usage](#usage)
-	- [Contributing](#contributing)
-	- [License](#license)
+- [Key Features](#key-features)
+- [Technology Stack](#technology-stack)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Key Features
 ### Manager Capabilities
@@ -92,4 +86,4 @@ Contributions are welcome! If you find any issues or have suggestions for improv
 5. Open a pull request.
 
 ## License
-
+This project is licensed under the [MIT License](./License.md)
