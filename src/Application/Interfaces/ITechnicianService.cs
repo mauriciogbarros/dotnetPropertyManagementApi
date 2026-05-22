@@ -1,6 +1,6 @@
 using Application.Dtos;
 
-namespace Application.Abstractions;
+namespace Application.Interfaces;
 
 public interface ITechnicianService
 {

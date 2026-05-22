@@ -1,4 +1,4 @@
-using Application.Abstractions;
+using Application.Interfaces;
 using Application.Services;
 using Microsoft.Extensions.DependencyInjection;
 

@@ -6,6 +6,20 @@ This API allows **managers** to manage property **units**, **tenants**, and **te
 #### Motivation
 This is a portfolio project demonstrating API design, authentication, authorization, and data modeling using .NET and PostgreSQL.
 
+## Table of Contents
+- [Property Management API](#property-management-api)
+			- [Motivation](#motivation)
+	- [Table of Contents](#table-of-contents)
+	- [Key Features](#key-features)
+		- [Manager Capabilities](#manager-capabilities)
+		- [Technician Capabilities](#technician-capabilities)
+		- [Tenant Capabilities](#tenant-capabilities)
+	- [Technology Stack](#technology-stack)
+	- [Installation](#installation)
+	- [Usage](#usage)
+	- [Contributing](#contributing)
+	- [License](#license)
+
 ## Key Features
 ### Manager Capabilities
 - Create new **users** (**managers**, **technicians**, **tenants**)
@@ -33,74 +47,49 @@ This is a portfolio project demonstrating API design, authentication, authorizat
 - OpenAPI
 - FluentValidation
 
-## Architecture Overview
-This project follows a layered, clean architecture approach to keep the codebase maintainable and scalable.
+## Installation
+1. Clone the repository:
 
-**dotnetPropertyManagementApi**
-- Api/
-  - Controllers/
-- Application/
-  - Abstractions/
-  - DependencyInjection/
-  - Dtos/
-- Domain/
-  - Abstractions/
-  - Entities/
-  - Enums/
-  - ValueObjects/
-- Infrastructure/
-  - Persistence
-    - DependencyInjection/
-    - DesignTime/
-    - Migrations/
-    - Repositories
-- Tests/
-  - Unit/
-  - Integration/
-
-### Key rules
-- Domain
-  - Pure business logic
-  - No EF Core, no ASP.NET, no dependencies
-- Application
-  - Use cases, interfaces, DTOs
-  - Depends only on Domain
-  - Defines repository contracts
-- Infrastructure
-  - DbContext, migrations, repository implementations
-  - Depends on Application + Domain
-- API
-  - Controllers, HTTP concerns
-  - Depends on Application
-  - References Infrastructure **only to register services**
-
-```
-Domain <---- Application
-  ^             |
-  |             |
-Infrastructure  |
-  ^             |
-  |             |
- API -----------
+```shell
+git clone https://github.com/mauriciogbarros/dotnetPropertyManagementApi
 ```
 
-### References
-Rule: outer -> inner
-- `API` -> `Application`
-- `API` -> `Infrastructure`
-- `Application` -> `Infrastructure`
-- `Application` -> `Domain`
-- `Infrastructure` -> `Domain` 
+2. Navigate to the project directory:
 
-## API Endpoints Overview
-### Manager Endpoints
-|Method|Endpoint|Description|
-|:---:|:---|:---|
+```shell
+cd dotnetPropertyManagementApi
+```
 
-### Technician Endpoints
-|Method|Endpoint|Description|
-|:---:|:---|:---|
+3. Restore NuGet packages:
 
-### Tenant Endpoints
-|Method|Endpoint|Description|
-|:---:|:---|:---|
+```shell
+dotnet restore
+```
+
+4. Build the project:
+
+```shell
+dotnet build
+```
+
+## Usage
+1. Run the application
+
+```shell
+dotnet run --project src/API/API.csproj
+```
+
+2. Access the API in your browser or using a tool like `Thunder Client`:
+- Local development: http://localhost:5299
+
+## Contributing
+Contributions are welcome! If you find any issues or have suggestions for improvements please open an issue or submit a pull request.
+
+1. Fork the repository.
+2. Create a new branch for your changes.
+3. Make your changes and commit them.
+4. Push your changes to your forked repository.
+5. Open a pull request.
+
+## License
+

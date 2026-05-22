@@ -1,10 +1,8 @@
 <Solution>
-  <Folder Name="/Tests/">
-    <Project Path="Tests/Integration/Integration.csproj" />
-    <Project Path="Tests/Unit/Unit.csproj" />
-  </Folder>
-  <Project Path="Api/Api.csproj" />
-  <Project Path="Application/Application.csproj" />
-  <Project Path="Domain/Domain.csproj" />
-  <Project Path="Infrastructure/Infrastructure.csproj" />
+		<Project Path="src/API/API.csproj" />
+		<Project Path="src/Application/Application.csproj" />
+		<Project Path="src/Domain/Domain.csproj" />
+		<Project Path="src/Infrastructure/Infrastructure.csproj" />
+		<Project Path="src/Tests/Integration/Integration.csproj" />
+		<Project Path="src/Tests/Unit/Unit.csproj" />
 </Solution>

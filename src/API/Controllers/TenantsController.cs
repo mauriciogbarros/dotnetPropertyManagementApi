@@ -1,4 +1,4 @@
-using Application.Abstractions;
+using Application.Interfaces;
 using Application.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
