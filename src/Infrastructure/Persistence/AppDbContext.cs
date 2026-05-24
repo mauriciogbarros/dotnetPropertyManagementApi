@@ -2,9 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using Domain.Entities;
 using Domain.Entities.Users;
 using Domain.Enums;
-using System.Text.Json;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Infrastructure.Persistence;
 
@@ -33,6 +30,9 @@ public sealed class AppDbContext : DbContext
 	{
 		return optionsBuider.UseNpgsql(connectionString, npgsql =>
 		{
+			// Ensure migrations are always looked for in the Infrastructure assembly
+			npgsql.MigrationsAssembly(typeof(AppDbContext).Assembly.GetName().Name);
+
 			// EF/provider layer enum mapping (drives EF model/migrations)
 			npgsql.MapEnum<UserRole>("t_user_role");
 			npgsql.MapEnum<TechnicianCapability>("t_technician_capability");
@@ -98,11 +98,6 @@ public sealed class AppDbContext : DbContext
 				.HasForeignKey("property_id")
 				.IsRequired()
 				.OnDelete(DeleteBehavior.Cascade);
-
-			e.HasMany(p => p.Users)
-				.WithOne()
-				.HasForeignKey("property_id")
-				.OnDelete(DeleteBehavior.Restrict);
 		});
 
 		// Unit
@@ -129,7 +124,7 @@ public sealed class AppDbContext : DbContext
 			// 1:1 Unit <-> Tenant (FK lives on Tenant row in Users table).
 			e.HasOne(u => u.Tenant)
 				.WithOne(t => t.Unit)
-				.HasForeignKey<Tenant>("UnitId")
+				.HasForeignKey<Tenant>("unit_id")
 				.IsRequired()
 				.OnDelete(DeleteBehavior.Restrict);
 		});
@@ -178,8 +173,8 @@ public sealed class AppDbContext : DbContext
 				.IsRequired()
 				.HasColumnName("hourly_rate");
 			e.HasOne(m => m.Property)
-				.WithMany()
-				.HasForeignKey("PropertyId")
+				.WithMany("Users")
+				.HasForeignKey("property_id")
 				.IsRequired()
 				.OnDelete(DeleteBehavior.Restrict);
 		});
@@ -192,8 +187,8 @@ public sealed class AppDbContext : DbContext
 				.IsRequired()
 				.HasColumnName("hourly_rate");
 			e.HasOne(t => t.Property)
-				.WithMany()
-				.HasForeignKey("PropertyId")
+				.WithMany("Users")
+				.HasForeignKey("property_id")
 				.IsRequired()
 				.OnDelete(DeleteBehavior.Restrict);
 
@@ -202,9 +197,6 @@ public sealed class AppDbContext : DbContext
 			// Domain type is TechnicianCapability[]
 			e.Property(t => t.Capabilities)
 				.HasColumnType("t_technician_capability[]");
-
-			// Ensure PostgreSQL array column type
-			e.Property(t => t.Capabilities).HasColumnType("text[]");
 		});
 
 		// Tenant (TPH Columns)
@@ -217,8 +209,8 @@ public sealed class AppDbContext : DbContext
 				.IsRequired()
 				.HasColumnName("moved_out");
 			// FK column in Users for the Unit relationship
-			e.Property<Guid>("UnitId");
-			e.HasIndex("UnitId").IsUnique();
+			e.Property<Guid>("unit_id");
+			e.HasIndex("unit_id").IsUnique();
 		});
 	}
 }

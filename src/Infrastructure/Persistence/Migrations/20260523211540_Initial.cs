@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Domain.Enums;
 using Microsoft.EntityFrameworkCore.Migrations;
 
@@ -7,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infrastructure.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialDev : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -69,12 +70,12 @@ namespace Infrastructure.Persistence.Migrations
                     phone_number = table.Column<string>(type: "text", nullable: false),
                     hashed_password = table.Column<string>(type: "text", nullable: false),
                     created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    property_id = table.Column<Guid>(type: "uuid", nullable: true),
-                    Manager_PropertyId = table.Column<Guid>(type: "uuid", nullable: true),
-                    hourly_rate = table.Column<decimal>(type: "numeric(10,2)", precision: 10, scale: 2, nullable: true),
                     PropertyId = table.Column<Guid>(type: "uuid", nullable: true),
-                    Capabilities = table.Column<string[]>(type: "text[]", nullable: true),
-                    UnitId = table.Column<Guid>(type: "uuid", nullable: true),
+                    hourly_rate = table.Column<decimal>(type: "numeric(10,2)", precision: 10, scale: 2, nullable: true),
+                    Manager_property_id = table.Column<Guid>(type: "uuid", nullable: true),
+                    property_id = table.Column<Guid>(type: "uuid", nullable: true),
+                    Capabilities = table.Column<List<TechnicianCapability>>(type: "t_technician_capability[]", nullable: true),
+                    unit_id = table.Column<Guid>(type: "uuid", nullable: true),
                     moved_in = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     moved_out = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
@@ -82,17 +83,11 @@ namespace Infrastructure.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Users_Properties_Manager_PropertyId",
-                        column: x => x.Manager_PropertyId,
-                        principalTable: "Properties",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_Users_Properties_PropertyId",
                         column: x => x.PropertyId,
                         principalTable: "Properties",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Users_Properties_property_id",
                         column: x => x.property_id,
@@ -100,8 +95,8 @@ namespace Infrastructure.Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Users_Units_UnitId",
-                        column: x => x.UnitId,
+                        name: "FK_Users_Units_unit_id",
+                        column: x => x.unit_id,
                         principalTable: "Units",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -119,11 +114,6 @@ namespace Infrastructure.Persistence.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_Manager_PropertyId",
-                table: "Users",
-                column: "Manager_PropertyId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Users_property_id",
                 table: "Users",
                 column: "property_id");
@@ -134,9 +124,9 @@ namespace Infrastructure.Persistence.Migrations
                 column: "PropertyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_UnitId",
+                name: "IX_Users_unit_id",
                 table: "Users",
-                column: "UnitId",
+                column: "unit_id",
                 unique: true);
         }
 

@@ -48,7 +48,7 @@ public partial class InitialDev : Migration
 				bedrooms = table.Column<int>(type: "integer", nullable: false),
 				bathrooms = table.Column<int>(type: "integer", nullable: false),
 				area_m2 = table.Column<float>(type: "real", nullable: false),
-				monthly_rate = table.Column<decimal>(type: "numberic(12,2)", nullable: false)
+				monthly_rate = table.Column<decimal>(type: "numeric(12,2)", nullable: false)
 			},
 			constraints: table =>
 			{
@@ -101,7 +101,7 @@ public partial class InitialDev : Migration
 					name: "FK_Users_Properties",
 					column: x => x.property_id,
 					principalTable: "Properties",
-					principalColumn: "Id",
+					principalColumn: "id",
 					onDelete: ReferentialAction.Restrict
 				);
 
