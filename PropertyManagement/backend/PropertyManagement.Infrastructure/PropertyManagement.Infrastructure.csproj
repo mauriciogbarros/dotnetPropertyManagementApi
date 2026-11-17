@@ -1,5 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <ItemGroup>
+    <ProjectReference Include="..\PropertyManagement.Application\PropertyManagement.Application.csproj" />
+    <ProjectReference Include="..\PropertyManagement.Domain\PropertyManagement.Domain.csproj" />
+  </ItemGroup>
+
   <PropertyGroup>
   </PropertyGroup>
 

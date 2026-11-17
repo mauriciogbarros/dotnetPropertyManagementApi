@@ -7,4 +7,9 @@
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PropertyManagement.Application\PropertyManagement.Application.csproj" />
+    <ProjectReference Include="..\PropertyManagement.Infrastructure\PropertyManagement.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
