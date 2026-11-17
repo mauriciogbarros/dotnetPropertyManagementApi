@@ -1,0 +1,71 @@
+%% ERD part 1: people and access (email is the login identifier)
+erDiagram
+  USER ||--|| USER_CREDENTIAL : "logs in with"
+  USER ||--o| TENANT : "may be"
+  USER ||--o| EMPLOYEE : "may be"
+  USER ||--o| ADMIN : "may be"
+  EMPLOYEE ||--o| MANAGER : "may be"
+  EMPLOYEE ||--o| TECHNICIAN : "may be"
+  EMPLOYEE ||--o{ WAGE_HISTORY : "paid under"
+  MANAGER ||--o{ WAGE_HISTORY : "records"
+  TECHNICIAN ||--o{ TECHNICIAN_SKILL : has
+  SKILL ||--o{ TECHNICIAN_SKILL : "listed in"
+
+  USER {
+    uuid id PK
+    string first_name
+    string last_name
+    date date_of_birth
+    string phone_number
+    string email UK
+    boolean is_active
+    timestamptz created_at
+    timestamptz updated_at
+  }
+  USER_CREDENTIAL {
+    uuid user_id PK, FK
+    string password_hash
+    int failed_attempts
+    timestamptz lockout_end
+    timestamptz last_login
+  }
+  TENANT {
+    uuid user_id PK, FK
+    string emergency_contact_name
+    string emergency_contact_phone
+    string status
+  }
+  EMPLOYEE {
+    uuid user_id PK, FK
+    date hire_date
+    date termination_date
+    string employment_status
+    string emergency_contact_name
+    string emergency_contact_phone
+  }
+  MANAGER {
+    uuid employee_id PK, FK
+  }
+  TECHNICIAN {
+    uuid employee_id PK, FK
+  }
+  ADMIN {
+    uuid user_id PK, FK
+  }
+  WAGE_HISTORY {
+    uuid id PK
+    uuid employee_id FK
+    decimal hourly_wage
+    date effective_from
+    date effective_to
+    uuid changed_by FK
+  }
+  SKILL {
+    uuid id PK
+    string name UK
+  }
+  TECHNICIAN_SKILL {
+    uuid technician_id PK, FK
+    uuid skill_id PK, FK
+    date certification_expiry
+  }

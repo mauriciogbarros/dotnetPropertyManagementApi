@@ -1,0 +1,75 @@
+%% ERD part 3: maintenance (UNIT, APPLIANCE, SKILL, USER and TECHNICIAN are stubs from parts 1 and 2)
+%% category_id references SKILL: the skill list doubles as the ticket category list
+%% TICKET_EVENT is the append-only timeline; comment_id links to the explaining comment
+erDiagram
+  UNIT ||--o{ MAINTENANCE_TICKET : has
+  APPLIANCE |o--o{ MAINTENANCE_TICKET : concerns
+  SKILL ||--o{ MAINTENANCE_TICKET : categorizes
+  USER ||--o{ MAINTENANCE_TICKET : opens
+  TECHNICIAN |o--o{ MAINTENANCE_TICKET : "assigned to"
+  MAINTENANCE_TICKET ||--o{ TICKET_COMMENT : has
+  MAINTENANCE_TICKET ||--o{ TICKET_EVENT : logs
+  MAINTENANCE_TICKET ||--o{ TIME_ENTRY : tracks
+  USER ||--o{ TICKET_COMMENT : writes
+  USER ||--o{ TICKET_EVENT : performs
+  TICKET_COMMENT |o--o| TICKET_EVENT : explains
+  TECHNICIAN ||--o{ TIME_ENTRY : logs
+
+  MAINTENANCE_TICKET {
+    uuid id PK
+    uuid unit_id FK
+    uuid appliance_id FK
+    uuid category_id FK
+    uuid created_by FK
+    uuid assigned_technician_id FK
+    string title
+    string description
+    string status
+    string closed_reason
+    timestamptz created_at
+    timestamptz updated_at
+    timestamptz work_done_at
+    timestamptz resolved_at
+    timestamptz closed_at
+  }
+  TICKET_COMMENT {
+    uuid id PK
+    uuid ticket_id FK
+    uuid author_id FK
+    string body
+    timestamptz created_at
+  }
+  TICKET_EVENT {
+    uuid id PK
+    uuid ticket_id FK
+    uuid comment_id FK
+    string event_type
+    string from_value
+    string to_value
+    uuid performed_by FK
+    timestamptz occurred_at
+  }
+  TIME_ENTRY {
+    uuid id PK
+    uuid ticket_id FK
+    uuid technician_id FK
+    date work_date
+    decimal hours
+    string note
+  }
+  UNIT {
+    uuid id PK
+  }
+  APPLIANCE {
+    uuid id PK
+  }
+  SKILL {
+    uuid id PK
+    string name UK
+  }
+  USER {
+    uuid id PK
+  }
+  TECHNICIAN {
+    uuid employee_id PK
+  }

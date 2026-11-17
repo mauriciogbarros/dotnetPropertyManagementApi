@@ -1,0 +1,100 @@
+%% ERD part 2: building, leasing and money (TENANT, MANAGER and USER are stubs from part 1)
+erDiagram
+  UNIT ||--o{ UNIT_RATE_HISTORY : "listed rate"
+  UNIT ||--o{ APPLIANCE : contains
+  UNIT ||--o{ LEASE : "leased through"
+  TENANT ||--o{ LEASE : signs
+  LEASE ||--o{ OCCUPANT : houses
+  LEASE ||--o{ MOVE_OUT_REQUEST : "ended by"
+  LEASE ||--o{ CHARGE : bills
+  CHARGE ||--o{ PAYMENT : "settled by"
+  USER ||--o{ MOVE_OUT_REQUEST : submits
+  MANAGER ||--o{ UNIT_RATE_HISTORY : sets
+  MANAGER |o--o{ MOVE_OUT_REQUEST : reviews
+  MANAGER ||--o{ PAYMENT : records
+
+  UNIT {
+    uuid id PK
+    string type
+    string name UK
+    int floor
+    decimal area_m2
+    int bedrooms
+    int bathrooms
+    boolean has_balcony
+    boolean has_kitchen
+    string status
+    timestamptz decommissioned_at
+  }
+  UNIT_RATE_HISTORY {
+    uuid id PK
+    uuid unit_id FK
+    decimal monthly_rate
+    date effective_from
+    uuid changed_by FK
+  }
+  APPLIANCE {
+    uuid id PK
+    uuid unit_id FK
+    string type
+    string brand
+    string model
+    string serial_number
+    date installed_on
+    jsonb specifications
+    string status
+  }
+  LEASE {
+    uuid id PK
+    uuid unit_id FK
+    uuid tenant_id FK
+    date start_date
+    date end_date
+    decimal agreed_monthly_rent
+    string status
+  }
+  OCCUPANT {
+    uuid id PK
+    uuid lease_id FK
+    string first_name
+    string last_name
+    date date_of_birth
+    string relationship
+  }
+  MOVE_OUT_REQUEST {
+    uuid id PK
+    uuid lease_id FK
+    uuid requested_by FK
+    date requested_move_out_date
+    string status
+    uuid reviewed_by FK
+    timestamptz reviewed_at
+    string notes
+  }
+  CHARGE {
+    uuid id PK
+    uuid lease_id FK
+    date period
+    string type
+    decimal amount
+    date due_date
+    boolean is_voided
+  }
+  PAYMENT {
+    uuid id PK
+    uuid charge_id FK
+    decimal amount
+    date paid_on
+    string method
+    string reference
+    uuid recorded_by FK
+  }
+  TENANT {
+    uuid user_id PK
+  }
+  MANAGER {
+    uuid employee_id PK
+  }
+  USER {
+    uuid id PK
+  }

@@ -1,0 +1,15 @@
+<Solution>
+  <Folder Name="/backend/">
+    <Project Path="backend/PropertyManagement.Api/PropertyManagement.Api.csproj" />
+    <Project Path="backend/PropertyManagement.Application/PropertyManagement.Application.csproj" />
+    <Project Path="backend/PropertyManagement.Domain/PropertyManagement.Domain.csproj" />
+    <Project Path="backend/PropertyManagement.Infrastructure/PropertyManagement.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/PropertyManagement.Api.IntegrationTests/PropertyManagement.Api.IntegrationTests.csproj" />
+    <Project Path="tests/PropertyManagement.Application.UnitTests/PropertyManagement.Application.UnitTests.csproj" />
+    <Project Path="tests/PropertyManagement.Architecture.Tests/PropertyManagement.Architecture.Tests.csproj" />
+    <Project Path="tests/PropertyManagement.Domain.UnitTests/PropertyManagement.Domain.UnitTests.csproj" />
+    <Project Path="tests/PropertyManagement.Infrastructure.IntegrationTests/PropertyManagement.Infrastructure.IntegrationTests.csproj" />
+  </Folder>
+</Solution>
