@@ -21,7 +21,7 @@ jobs:
         working-directory: PropertyManagement
 
       - name: Format check
-        run: dotneet format --verify-no-changes
+        run: dotnet format --verify-no-changes
         working-directory: PropertyManagement
 
       - name: Build
